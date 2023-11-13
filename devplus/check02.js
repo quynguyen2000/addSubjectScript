@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const filePath = "./recognition_record_20231109.txt";
+const filePath = "./devplus_recognition.txt";
 const resultPath = "./devplus.txt";
 
 function formatData(inputFile, outputFile) {
@@ -15,7 +15,7 @@ function formatData(inputFile, outputFile) {
     const dateStrings = [];
 
     for (let line of lines) {
-      const [_, date, time, __, ___, name] = line.split("\t");
+      const [_, __, ___, date, time, ____, _____, name] = line.split("\t");
 
       const date_time = new Date(`${date} ${time}`);
       const mins_date = new Date(`${date} 08:00:00`);

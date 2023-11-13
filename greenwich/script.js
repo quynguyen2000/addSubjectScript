@@ -1,20 +1,20 @@
 const fs = require("fs");
-const { getToken, getSubjectName, formatDate, createSign } = require("./token");
+const { getSubjectName, formatDate, createSign } = require("../nissen/token");
 
-const directoryPath = "./images";
+const directoryPath = "./gre_images";
 const fileFormat = "_success.txt";
 const fileError = "_error.txt";
 const successFile = formatDate() + fileFormat;
 const errorFile = formatDate() + fileError;
 
 const params = {
-  subject_type_id: 2,
-  store_id: 31,
+  gender: 1,
+  face_group_id: 18,
+  store_id: 63,
 };
 
 const createSubject = async () => {
-  const newToken = await getToken();
-  let d = Date(Date.now());
+  const newToken = "b82ba7413d37bfae841227beba1f9d0b";
 
   try {
     const images = fs.readdirSync(directoryPath);
@@ -47,12 +47,13 @@ const createSubjectPromise = async (image, newToken) => {
   const sign = createSign(paramsData, newToken);
 
   formData.append("name", paramsData.name);
-  formData.append("subject_type_id", params.subject_type_id);
+  formData.append("gender", params.gender);
+  formData.append("face_group_id", params.face_group_id);
   formData.append("store_id", params.store_id);
-  formData.append("subjectImg", paramsData.subjectImg);
+  formData.append("faceImg", paramsData.subjectImg);
 
   let res = await fetch(
-    "https://digieye.viotgroup.com/phpapi/aiApplication/subject/addSubject",
+    "https://digieye.viotgroup.com/phpapi/accessControl/target/add",
     {
       method: "POST",
       headers: {
